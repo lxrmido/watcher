@@ -87,7 +87,7 @@ class TestSite implements ShouldQueue
         if ($statusCode == -1) {
             if ($this->retryLeft > 0) {
                 dispatch(new static($this->batchId, $this->siteId, $this->retryLeft - 1));
-                $this->log(sprintf('%s 标记重试，剩余次数: ', $site->url, $this->retryLeft));
+                $this->log(sprintf('%s 标记重试，剩余次数: %d', $site->url, $this->retryLeft));
                 return;
             }
         }
