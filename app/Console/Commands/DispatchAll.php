@@ -53,13 +53,13 @@ class DispatchAll extends Command
         // 站点首页
         $sites = Site::all();
         $total += $sites->count();
-        $withAppSites = Site::where('with_app', 1)->get();
+        $sitesWithApp = Site::where('with_app', 1)->get();
         // 公开目录
-        $total += $withAppSites->count();
+        $total += $sitesWithApp->count();
         // 互动交流
-        $total += $withAppSites->count();
+        $total += $sitesWithApp->count();
         // 意见征集
-        $total += $withAppSites->count();    
+        $total += $sitesWithApp->count();    
         $this->batch = new TestBatch;
         $this->batch->total = $total;
         $this->batch->save();
@@ -70,15 +70,15 @@ class DispatchAll extends Command
             dispatch(new TestSite($this->batch->id, $site->id));
         }        
         // 公开目录
-        foreach ($sites as $site) {
+        foreach ($sitesWithApp as $site) {
             dispatch(new TestApp($this->batch->id, $site->id, 'gkml'));
         }        
         // 互动交流
-        foreach ($sites as $site) {
+        foreach ($sitesWithApp as $site) {
             dispatch(new TestApp($this->batch->id, $site->id, 'hdjl'));
         }        
         // 意见征集
-        foreach ($sites as $site) {
+        foreach ($sitesWithApp as $site) {
             dispatch(new TestApp($this->batch->id, $site->id, 'yjzj'));
         }        
         return 0;
