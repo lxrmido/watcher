@@ -49,8 +49,9 @@ class CheckBatch extends Command
                 $batch->error = TestResult::where('batch_id', $batch->id)
                                         ->where('status_code', '!=', 200)
                                         ->count();
-                $batch->save();
             }
+            $batch->finished = $resultsCount;
+            $batch->save();
         }
     }
 }
