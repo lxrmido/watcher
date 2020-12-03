@@ -104,6 +104,7 @@ class TestApp implements ShouldQueue
         $testResult->type = $this->appType;
         $testResult->status_code = $statusCode;
         $testResult->timecost = $timecost;
+        $testResult->url = $this->appUrl;
         $testResult->save();
         if ($statusCode !== 200) {
             $testError = new TestError;

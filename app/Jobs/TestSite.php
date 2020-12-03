@@ -99,6 +99,7 @@ class TestSite implements ShouldQueue
         $testResult->site_id = $site->id;
         $testResult->status_code = $statusCode;
         $testResult->timecost = $timecost;
+        $testResult->url = $site->url;
         $testResult->save();
         if ($statusCode !== 200) {
             $testError = new TestError;

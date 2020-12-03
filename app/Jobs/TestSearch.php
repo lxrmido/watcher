@@ -110,6 +110,7 @@ class TestSearch implements ShouldQueue
         $testResult->type = 'search';
         $testResult->status_code = $statusCode;
         $testResult->timecost = $timecost;
+        $testResult->url = $this->apiUrl;
         $testResult->save();
         if ($statusCode !== 200) {
             $testError = new TestError;
