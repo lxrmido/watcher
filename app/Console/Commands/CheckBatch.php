@@ -55,6 +55,9 @@ class CheckBatch extends Command
                 $batch->fast = TestResult::where('batch_id', $batch->id)
                                         ->where('timecost', '<', 50)
                                         ->count();          
+                $batch->healthcost = TestResult::where('batch_id', $batch->id)
+                                        ->where('status_code', 200)
+                                        ->sum('timecost');  
             }
             $batch->finished = $resultsCount;
             $batch->save();

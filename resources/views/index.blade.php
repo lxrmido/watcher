@@ -22,6 +22,7 @@
             var dataSlow = [];
             var dataError = [];
             var dataTimeCost = [];
+            var dataHealthCost = [];
             var i;
             for (i = 0; i < batches.length; i++) {
                 dataTime.push(batches[i].created_at);
@@ -30,6 +31,7 @@
                 dataSlow.push(batches[i].slow);
                 dataError.push(batches[i].error);
                 dataTimeCost.push(batches[i].timecost);
+                dataHealthCost.push(batches[i].healthcost);
             }
             var optionCount = {
                 tooltip: {
@@ -104,8 +106,11 @@
                 ]
             };
             var optionTimecost = option = {
+                legend: {
+                    data: ['总耗时', '正常站点耗时']
+                },
                 title: {
-                    text: '总访问时间'
+                    text: '访问时间(ms)'
                 },
                 xAxis: {
                     type: 'category',
@@ -116,8 +121,14 @@
                 },
                 series: [
                     {
-                        name: '总耗时(ms)',
+                        name: '总耗时',
                         data: dataTimeCost,
+                        stack: '总量',
+                        type: 'line'
+                    },
+                    {
+                        name: '正常站点耗时',
+                        data: dataHealthCost,
                         stack: '总量',
                         type: 'line'
                     }

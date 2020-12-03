@@ -46,7 +46,10 @@ class InitialSlow extends Command
                                         ->count();      
             $batch->fast = TestResult::where('batch_id', $batch->id)
                                         ->where('timecost', '<', 50)
-                                        ->count();            
+                                        ->count();     
+            $batch->healthcost = TestResult::where('batch_id', $batch->id)
+                                        ->where('status_code', 200)
+                                        ->sum('timecost');           
             $batch->save();
         }
         return 0;
