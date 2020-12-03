@@ -49,6 +49,12 @@ class CheckBatch extends Command
                 $batch->error = TestResult::where('batch_id', $batch->id)
                                         ->where('status_code', '!=', 200)
                                         ->count();
+                $batch->slow = TestResult::where('batch_id', $batch->id)
+                                        ->where('timecost', '>', 2000)
+                                        ->count();             
+                $batch->fast = TestResult::where('batch_id', $batch->id)
+                                        ->where('timecost', '<', 50)
+                                        ->count();          
             }
             $batch->finished = $resultsCount;
             $batch->save();
