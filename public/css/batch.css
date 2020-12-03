@@ -85,3 +85,6 @@ body{
 .g.sf{
     font-size:12px;
 }
+.g > a{
+    color:#333;
+}

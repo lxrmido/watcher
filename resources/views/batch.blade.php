@@ -74,9 +74,13 @@
         </div>
         @foreach ($results as $result)
         <div class="l">
-            <div class="g bdr site" title="{{$result['site_id']}} {{$result['name']}}">{{$result['name']}}</div>
+            <div class="g bdr site" title="{{$result['site_id']}} {{$result['name']}}">
+                <a href="../site/{{$result['site_id']}}">{{$result['name']}}</a>
+            </div>
             <div class="g bdr type">{{$result['type']}}</div>
-            <div class="g bdr url sf">{{$result['url']}}</div>
+            <div class="g bdr url sf">
+                <a href="{{$result['url']}}">{{$result['url']}}</a>
+            </div>
             <div class="g bdr created-at">{{$result['created_at']}}</div>
             <div class="g bdr status-code st-{{$result['status_code']}}">{{$result['status_code']}}</div>
             <div class="g timecost">{{$result['timecost']}}</div>
