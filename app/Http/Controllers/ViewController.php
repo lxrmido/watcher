@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Model\TestBatch;
 use App\Model\TestResult;
+use App\Model\TestError;
+use App\Model\Site;
 
 class ViewController extends Controller
 {
@@ -42,6 +44,30 @@ class ViewController extends Controller
         return view('index', [
             'batches' => $batches,
             'results' => $results,
+        ]);
+    }
+
+    public function site(Request $request, $siteId){
+        $site = Site::find($siteId);
+        if (!$site) {
+            abort(404, '站点不存在');
+        }
+        $results = TestResult::where('site_id', $site->id)
+                                ->orderBy('id', 'desc')
+                                ->limit(500)
+                                ->get();
+        $urls = [
+            'site' => $site->url
+        ];
+        if ($site->with_app == 1) {
+            $urls['gkml'] = $site->getAppUrl('gkml');
+            $urls['hdjl'] = $site->getAppUrl('hdjl');
+            $urls['yjzj'] = $site->getAppUrl('yjzj');
+        }
+        return view('site', [
+            'results' => $results,
+            'site' => $site,
+            'urls' => $urls
         ]);
     }
 }

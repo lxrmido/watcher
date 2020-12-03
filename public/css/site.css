@@ -1,0 +1,80 @@
+body{
+    margin: 0;
+    padding: 0;
+    background-color: #e3e3e3;
+}
+.page{
+    width: 1200px;
+    height: auto;
+    min-width: 1px;
+    clear: both;
+    margin: 0 auto;
+    overflow: hidden;
+    background-color: #fff;
+}
+.site-name{
+    background-color: #282c34;
+    color: #fff;
+    font-size: 20px;
+    height: 60px;
+    line-height: 60px;
+    text-indent: 20px;
+}
+.l{
+    width:100%;
+    clear: both;
+    height: 60px;
+    border-bottom: 1px #eee solid;
+}
+.k{
+    width: 120px;
+    height: 60px;
+    line-height: 60px;
+    font-size: 14px;
+    color: #333;
+    text-indent: 20px;
+    float: left;
+}
+.bdr{
+    border-right: 1px #eee solid;
+}
+.v{
+    width: 600px;
+    height: 60px;
+    line-height: 60px;
+    font-size: 14px;
+    color: #333;
+    text-indent: 20px;
+    float: left;
+}
+.b{
+    font-weight: bold;
+}
+.g{
+    height: 60px;
+    line-height: 60px;
+    font-size: 14px;
+    color: #333;
+    text-indent: 20px;
+    float: left;
+}
+.g.created-at{
+    width: 220px;
+}
+.g.status-code{
+    width: 120px;
+    color: #940c0c;
+}
+.g.status-code.st-200{
+    font-weight: bold;
+    color: #333;
+}
+.g.timecost{
+    width: 120px;
+}
+.g.type{
+    width: 120px;
+}
+.g.url{
+    width: 520px;
+}

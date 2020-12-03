@@ -14,3 +14,4 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', 'ViewController@index');
+Route::get('/site/{siteId}', 'ViewController@site');

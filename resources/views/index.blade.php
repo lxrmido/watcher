@@ -12,7 +12,7 @@
         @foreach ($results as $result)
             <a 
                 class="site-item {{$result->health}}" 
-                href="/site/{{$result->site_id}}"
+                href="./site/{{$result->site_id}}"
                 title="{{$result->name}} {{$result->type}}"
                 >
                 {{$result->name}}
@@ -122,6 +122,12 @@
                 ]
             };
             var optionTimecost = option = {
+                tooltip: {
+                    trigger: 'axis',
+                    axisPointer: {            // 坐标轴指示器，坐标轴触发有效
+                        type: 'shadow'        // 默认为直线，可选为：'line' | 'shadow'
+                    }
+                },
                 legend: {
                     data: ['总耗时', '正常站点耗时']
                 },
@@ -133,19 +139,18 @@
                     data: dataTime
                 },
                 yAxis: {
-                    type: 'value'
+                    type: 'value',
+                    formatter: '{value} 毫秒'
                 },
                 series: [
                     {
                         name: '总耗时',
                         data: dataTimeCost,
-                        stack: '总量',
                         type: 'line'
                     },
                     {
                         name: '正常站点耗时',
                         data: dataHealthCost,
-                        stack: '总量',
                         type: 'line'
                     }
                 ],
