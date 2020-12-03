@@ -2,6 +2,40 @@ body{
     margin: 0;
     padding: 0;
 }
+.site-list{
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 200px;
+    height: 100%;
+    overflow-y: hidden;
+    background-color: #f3f3f3;
+}
+.site-list:hover{
+    overflow-y: auto;
+}
+.site-item{
+    display: block;
+    width:180px;
+    height:40px;
+    border-bottom: 1px solid #f3f3f3;
+    line-height:40px;
+    font-size: 14px;
+    padding-left: 8px;
+    overflow: hidden;
+    color: #fff;
+    background: #2f4553;
+    text-decoration: none;
+}
+.site-item.error{
+    background-color: #c05655;
+}
+.site-item.slow{
+    background-color: #cf917d;
+}
+.site-item.fast{
+    background-color: #9ec4b3;
+}
 .chart-count{
     position: fixed;
     left: 200px;
@@ -17,4 +51,11 @@ body{
     right: 0;
     bottom: 0;
     height: 45%;
+}
+.container{
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    position: relative;
 }

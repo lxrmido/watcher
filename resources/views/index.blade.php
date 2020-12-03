@@ -8,11 +8,27 @@
     <link rel="stylesheet" href="css/index.css">
 </head>
 <body>
-    <div class="chart-count" id="chart-count"></div>
-    <div class="chart-timecost" id="chart-timecost"></div>
+    <div class="site-list">
+        @foreach ($results as $result)
+            <a 
+                class="site-item {{$result->health}}" 
+                href="/site/{{$result->site_id}}"
+                title="{{$result->name}} {{$result->type}}"
+                >
+                {{$result->name}}
+            </a>
+        @endforeach
+    </div>
+    <div class="chart-count">
+        <div class="container" id="chart-count"></div>
+    </div>
+    <div class="chart-timecost">
+        <div class="container" id="chart-timecost"></div>
+    </div>
 </body>
     <script type="text/javascript">
         var batches = @json($batches);
+        var results = @json($results);
         window.onload = function() {
             var chartCount = echarts.init(document.getElementById('chart-count'));
             var chartTimecost = echarts.init(document.getElementById('chart-timecost'));

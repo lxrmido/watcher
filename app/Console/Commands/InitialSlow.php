@@ -42,10 +42,10 @@ class InitialSlow extends Command
         $batches = TestBatch::all();
         foreach ($batches as $batch) {
             $batch->slow = TestResult::where('batch_id', $batch->id)
-                                        ->where('timecost', '>', 2000)
+                                        ->where('timecost', '>', env('TIMECOST_SLOW'))
                                         ->count();      
             $batch->fast = TestResult::where('batch_id', $batch->id)
-                                        ->where('timecost', '<', 50)
+                                        ->where('timecost', '<', env('TIMECOST_FAST'))
                                         ->count();     
             $batch->healthcost = TestResult::where('batch_id', $batch->id)
                                         ->where('status_code', 200)
