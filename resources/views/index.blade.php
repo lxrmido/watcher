@@ -165,6 +165,9 @@
             chartCount.on('click', function (params) {
                 window.location.href = './batch/' + batches[params.dataIndex].id;
             });
+            chartTimecost.on('click', function (params) {
+                window.location.href = './batch/' + batches[params.dataIndex].id;
+            });
         }
     </script>
 </html>
