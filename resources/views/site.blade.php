@@ -12,6 +12,9 @@
         <div class="site-name">
             {{$site->name}}
         </div>
+        <div class="chart" id="chart">
+
+        </div>
         <div class="l">
             <div class="k b bdr">监测项目</div>
             <div class="v b">监测地址</div>
@@ -44,4 +47,45 @@
         @endforeach
     </div>
 </body>
+<script type="text/javascript">
+    var results = @json($results);
+    var dataTime = [];
+    var dataTimeCost = [];
+    var i;
+    for (i = 0; i < results.length; i++) {
+        dataTime.push(results[i].created_at);
+        dataTimeCost.push(results[i].timecost);
+    }
+    var chart = echarts.init(document.getElementById('chart'));
+    var optionTimecost = option = {
+        tooltip: {
+            trigger: 'axis',
+            axisPointer: {            // 坐标轴指示器，坐标轴触发有效
+                type: 'shadow'        // 默认为直线，可选为：'line' | 'shadow'
+            }
+        },
+        title: {
+            text: '访问时间(ms)'
+        },
+        xAxis: {
+            type: 'category',
+            data: dataTime
+        },
+        yAxis: {
+            type: 'value',
+            formatter: '{value} 毫秒'
+        },
+        series: [
+            {
+                name: '耗时',
+                data: dataTimeCost,
+                type: 'line'
+            },
+        ],
+        dataZoom: {
+            type: 'slider'
+        }
+    };
+    chart.setOption(optionTimecost);
+</script>
 </html>
