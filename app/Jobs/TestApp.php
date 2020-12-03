@@ -90,7 +90,7 @@ class TestApp implements ShouldQueue
         }
         if ($statusCode == -1) {
             if ($this->retryLeft > 0) {
-                dispatch(new static($this->batchId, $this->siteId, $this->retryLeft - 1));
+                dispatch(new static($this->batchId, $this->siteId, $this->appType, $this->retryLeft - 1));
                 $this->log(sprintf('%s 标记重试，剩余次数: %d', $this->appUrl, $this->retryLeft));
                 return;
             }
