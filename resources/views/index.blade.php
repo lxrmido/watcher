@@ -15,7 +15,7 @@
                 href="./site/{{$result->site_id}}"
                 title="{{$result->name}} {{$result->type}}"
                 >
-                {{$result->name}}
+                {{$result->name}} {{$result->type}}
             </a>
         @endforeach
     </div>
@@ -161,6 +161,10 @@
 
             chartCount.setOption(optionCount);
             chartTimecost.setOption(optionTimecost);
+
+            chartCount.on('click', function (params) {
+                window.location.href = './batch/' + batches[params.dataIndex].id;
+            });
         }
     </script>
 </html>
