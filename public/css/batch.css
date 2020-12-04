@@ -88,3 +88,8 @@ body{
 .g > a{
     color:#333;
 }
+.chart{
+    width:100%;
+    height: 400px;
+    clear: both;
+}

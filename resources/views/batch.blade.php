@@ -12,6 +12,9 @@
         <div class="batch-created-at">
             {{$batch->created_at}} (第{{$batch->id}}次)
         </div>
+        <div class="chart" id="chart">
+
+        </div>
         <div class="l">
             <div class="k b bdr">结果项</div>
             <div class="v b">结果值</div>
@@ -89,6 +92,103 @@
     </div>
 </body>
 <script type="text/javascript">
-
+    var results = @json($results);
+    var serviceAreas = {};
+    var i;
+    for (i = 0; i < results.length; i++) {
+        if (!serviceAreas[results[i].service_area_id]) {
+            serviceAreas[results[i].service_area_id] = {
+                error: 0,
+                slow: 0,
+                normal: 0,
+                fast: 0
+            }
+        }
+        serviceAreas[results[i].service_area_id][results[i].health] ++;
+    }
+    var serviceAreasIds = [];
+    var dataFast = [];
+    var dataNormal = [];
+    var dataSlow = [];
+    var dataError = [];
+    for (i in serviceAreas) {
+        console.log(serviceAreas[i])
+        serviceAreasIds.push(i);
+        dataFast.push(serviceAreas[i].fast);
+        dataNormal.push(serviceAreas[i].normal);
+        dataSlow.push(serviceAreas[i].slow);
+        dataError.push(serviceAreas[i].error);
+    }
+    var optionCount = {
+        tooltip: {
+            trigger: 'axis',
+            axisPointer: {            // 坐标轴指示器，坐标轴触发有效
+                type: 'shadow'        // 默认为直线，可选为：'line' | 'shadow'
+            }
+        },
+        title: {
+            text: '服务区状态'
+        },
+        legend: {
+            data: ['快速', '一般', '缓慢', '出错']
+        },
+        grid: {
+            left: '3%',
+            right: '4%',
+            bottom: '3%',
+            containLabel: true
+        },
+        yAxis: {
+            type: 'value'
+        },
+        xAxis: {
+            type: 'category',
+            data: serviceAreasIds
+        },
+        series: [
+            {
+                name: '快速',
+                type: 'bar',
+                stack: '总量',
+                label: {
+                    show: false,
+                },
+                data: dataFast,
+                color: '#9ec4b3'
+            },
+            {
+                name: '一般',
+                type: 'bar',
+                stack: '总量',
+                label: {
+                    show: false,
+                },
+                data: dataNormal,
+                color: '#2f4553'
+            },
+            {
+                name: '缓慢',
+                type: 'bar',
+                stack: '总量',
+                label: {
+                    show: false,
+                },
+                data: dataSlow,
+                color: '#cf917d'
+            },
+            {
+                name: '出错',
+                type: 'bar',
+                stack: '总量',
+                label: {
+                    show: false,
+                },
+                data: dataError,
+                color: '#c05655'
+            },
+        ]
+    };
+    var chart = echarts.init(document.getElementById('chart'));
+    chart.setOption(optionCount);
 </script>
 </html>

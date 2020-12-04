@@ -40,6 +40,8 @@ class ViewController extends Controller
                 $result->health = 'slow';
             } else if ($result->timecost < env('TIMECOST_FAST')) {
                 $result->health = 'fast';
+            } else {
+                $result->health = 'normal';
             }
             $results[] = $result;
         }
@@ -105,6 +107,8 @@ class ViewController extends Controller
                 $result->health = 'slow';
             } else if ($result->timecost < env('TIMECOST_FAST')) {
                 $result->health = 'fast';
+            } else {
+                $result->health = 'normal';
             }
             $results[] = $result;
         }
