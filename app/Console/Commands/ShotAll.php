@@ -93,10 +93,8 @@ class ShotAll extends Command
             ]);
             throw new \Exception('TopicShareSnapshotCaptureError');
         }
-        $this->log('Shoted');
         $ossPath = 'snapshot/batch/' . $this->batch->id . '/' . $site->id . '.jpg';
         Storage::put($ossPath, $imageData);
-        $this->log('Put');
         $imageData = Storage::get($ossPath);
         $imageOssUploadResult = $this->ossClient->putObject(
             env('ALIYUN_BUCKET_NAME'), 
@@ -106,14 +104,11 @@ class ShotAll extends Command
         if (empty($imageOssUploadResult['info']['url'])) {
             throw new \Exception('AliYun image upload failed.');
         }
-        $this->log('Uploaded');
         $this->ossClient->putObjectAcl(
             env('ALIYUN_BUCKET_NAME'), 
             $ossPath, 
             'public-read'
         );
-        $this->log('ACL');
-        var_dump($imageOssUploadResult);
         $t2 = microtime(true);
         $timecost = intval(($t2 - $t1) * 1000);
         $snapshot = new SiteSnapshot;
@@ -122,6 +117,7 @@ class ShotAll extends Command
         $snapshot->url = $site->url;
         $snapshot->timecost = $timecost;
         $snapshot->oss_url = $imageOssUploadResult['info']['url'];
+        $snapshot->size = $imageOssUploadResult['info']['size_upload'];
         $snapshot->save();
         return $snapshot;
     }
