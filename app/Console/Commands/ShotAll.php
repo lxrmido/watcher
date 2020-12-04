@@ -104,6 +104,7 @@ class ShotAll extends Command
         if (empty($imageOssUploadResult['info']['url'])) {
             throw new \Exception('AliYun image upload failed.');
         }
+        Storage::delete($ossPath);
         $this->ossClient->putObjectAcl(
             env('ALIYUN_BUCKET_NAME'), 
             $ossPath, 
