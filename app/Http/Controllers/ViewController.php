@@ -18,12 +18,14 @@ class ViewController extends Controller
         $first = $batches[0];
         $results1 = TestResult::where('batch_id', $first->id)
                         ->where('status_code', '!=', 200)
+                        ->whereNotNull('sites.id')
                         ->leftJoin('sites', 'test_results.site_id', 'sites.id')
                         ->selectRaw('test_results.*, sites.service_area_id, sites.name')
                         ->orderBy('timecost', 'desc')
                         ->get();
         $results2 = TestResult::where('batch_id', $first->id)
                         ->where('status_code', 200)
+                        ->whereNotNull('sites.id')
                         ->leftJoin('sites', 'test_results.site_id', 'sites.id')
                         ->selectRaw('test_results.*, sites.service_area_id, sites.name')
                         ->orderBy('timecost', 'desc')
