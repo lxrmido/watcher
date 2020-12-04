@@ -8,6 +8,7 @@ use App\Model\SiteSnapshot;
 use App\Model\SiteSnapshotBatch;
 use GuzzleHttp\Client;
 use Log;
+use OSS\OssClient;
 
 class ShotAll extends Command
 {
@@ -27,6 +28,7 @@ class ShotAll extends Command
 
     private $batch;
     private $startTime;
+    private $ossClient;
 
     /**
      * Create a new command instance.
@@ -51,6 +53,7 @@ class ShotAll extends Command
         $this->batch->total = $total;
         $this->batch->save();
         $this->startTime = microtime(true);
+        $this->ossClient = new OssClient(env('ALIYUN_ACCESS_KEY'), env('ALIYUN_ACCESS_TOKEN'), env('ALIYUN_ENDPOINT'));
         foreach ($sites as $site) {
             try {
                 $this->log(sprintf('[begin]%d %s', $site->id, $site->url));
@@ -89,6 +92,21 @@ class ShotAll extends Command
             ]);
             throw new \Exception('TopicShareSnapshotCaptureError');
         }
+        $ossPath = 'snapshot/batch/' . $this->batch->id . '/' . $site->id . '.jpg';
+        $imageOssUploadResult = $this->ossClient->putObject(
+            env('ALIYUN_BUCKET_NAME'), 
+            $ossPath, 
+            $imageData
+        );
+        if (empty($imageOssUploadResult['info']['url'])) {
+            throw new \Exception('AliYun image upload failed.');
+        }
+        $this->ossClient->putObjectAcl(
+            env('ALIYUN_BUCKET_NAME'), 
+            $ossPath, 
+            'public-read'
+        );
+        var_dump($imageOssUploadResult);
         $t2 = microtime(true);
         $timecost = intval(($t2 - $t1) * 1000);
         $snapshot = new SiteSnapshot;
@@ -96,6 +114,7 @@ class ShotAll extends Command
         $snapshot->batch_id = $this->batch->id;
         $snapshot->url = $site->url;
         $snapshot->timecost = $timecost;
+        $snapshot->oss_url = $imageOssUploadResult['info']['url'];
         $snapshot->save();
         return $snapshot;
     }
