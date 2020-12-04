@@ -112,7 +112,6 @@
     var dataSlow = [];
     var dataError = [];
     for (i in serviceAreas) {
-        console.log(serviceAreas[i])
         serviceAreasIds.push(i);
         dataFast.push(serviceAreas[i].fast);
         dataNormal.push(serviceAreas[i].normal);
