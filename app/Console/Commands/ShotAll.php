@@ -63,7 +63,7 @@ class ShotAll extends Command
                 $this->batch->error ++;
                 Log::error('ShotAll', [
                     'site' => $site,
-                    'error' => $e->getMessage
+                    'error' => $e->getMessage()
                 ]);
                 $this->log(sprintf('[error]%d %s: %s', $site->id, $site->url, $e->getMessage()));
             }
