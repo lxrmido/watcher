@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{{$site->name}}</title>
     <script src="../js/echarts.min.js"></script>
-    <link rel="stylesheet" href="../css/site.css">
+    <link rel="stylesheet" href="../css/site.css?v={{time()}}">
 </head>
 <body>
     <div class="page">

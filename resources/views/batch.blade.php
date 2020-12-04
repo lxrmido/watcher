@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{{$batch->created_at}}</title>
     <script src="../js/echarts.min.js"></script>
-    <link rel="stylesheet" href="../css/batch.css">
+    <link rel="stylesheet" href="../css/batch.css?v={{time()}}">
 </head>
 <body>
     <div class="page">
