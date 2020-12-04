@@ -9,6 +9,7 @@ use App\Model\SiteSnapshotBatch;
 use GuzzleHttp\Client;
 use Log;
 use OSS\OssClient;
+use Storage;
 
 class ShotAll extends Command
 {
@@ -94,6 +95,9 @@ class ShotAll extends Command
         }
         $this->log('Shoted');
         $ossPath = 'snapshot/batch/' . $this->batch->id . '/' . $site->id . '.jpg';
+        Storage::put($ossPath, $imageData);
+        $this->log('Put');
+        $imageData = Storage::get($ossPath);
         $imageOssUploadResult = $this->ossClient->putObject(
             env('ALIYUN_BUCKET_NAME'), 
             $ossPath, 
