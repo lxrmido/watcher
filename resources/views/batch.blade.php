@@ -70,6 +70,7 @@
         <div class="l">
             <div class="g bdr site b">监测站点</div>
             <div class="g bdr type b">监测项目</div>
+            <div class="g bdr service-area b">服务区</div>
             <div class="g bdr url b">监测地址</div>
             <div class="g bdr created-at b">监测时间</div>
             <div class="g bdr status-code b st-200">状态码</div>
@@ -81,6 +82,7 @@
                 <a href="../site/{{$result['site_id']}}">{{$result['name']}}</a>
             </div>
             <div class="g bdr type">{{$result['type']}}</div>
+            <div class="g bdr service-area">{{$result['service_area_id']}}</div>
             <div class="g bdr url sf">
                 <a href="{{$result['url']}}">{{$result['url']}}</a>
             </div>

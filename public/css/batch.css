@@ -63,7 +63,7 @@ body{
     width: 220px;
 }
 .g.status-code{
-    width: 120px;
+    width: 80px;
     color: #940c0c;
 }
 .g.status-code.st-200{
@@ -71,13 +71,16 @@ body{
     color: #333;
 }
 .g.timecost{
-    width: 120px;
+    width: 100px;
 }
 .g.type{
     width: 120px;
 }
 .g.url{
     width: 320px;
+}
+.g.service-area{
+    width: 120px;
 }
 .g.site{
     width: 220px;
