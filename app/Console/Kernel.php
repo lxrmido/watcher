@@ -26,7 +26,6 @@ class Kernel extends ConsoleKernel
     {
         $schedule->command('test:check')->everyMinute();
         $schedule->command('test:dispatch')->everyFifteenMinutes();
-        $schedule->command('shot:all')->everyTwoHours();
     }
 
     /**
