@@ -22,6 +22,7 @@ class TestSite implements ShouldQueue
     private $batchId;
     private $siteId;
     private $retryLeft;
+    private $batch;
 
     /**
      * Create a new job instance.
@@ -45,6 +46,15 @@ class TestSite implements ShouldQueue
         $site = Site::find($this->siteId);
         if (!$site) {
             $this->log('找不到站点:' . $this->siteId);
+            return;
+        }
+        $batch = TestBatch::find($this->batchId);
+        if (!$batch) {
+            $this->log('找不到批次:' . $this->batchId);
+            return;
+        }
+        if (time() - $batch->created_at->timestamp > 20 * 60) {
+            $this->log('已失效:' . $batch->created_at);
             return;
         }
         $this->test($site);
