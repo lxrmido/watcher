@@ -44,6 +44,15 @@ class TestSearch implements ShouldQueue
      */
     public function handle()
     {
+        $batch = TestBatch::find($this->batchId);
+        if (!$batch) {
+            $this->log('找不到批次:' . $this->batchId);
+            return;
+        }
+        if (time() - $batch->created_at->timestamp > 20 * 60) {
+            $this->log('已失效:' . $batch->created_at);
+            return;
+        }
         $this->test();
     }
 
