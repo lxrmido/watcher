@@ -12,8 +12,8 @@ class ViewController extends Controller
 {
     public function index(Request $request){
         $batches = TestBatch::where('status', 1)
+                                    ->where('created_at', '>', date('Y-m-d 00:00:00', time() - 86400 * 3))
                                     ->orderBy('id', 'desc')
-                                    ->limit(300)
                                     ->get();
         $first = $batches[0];
         $results1 = TestResult::where('batch_id', $first->id)
